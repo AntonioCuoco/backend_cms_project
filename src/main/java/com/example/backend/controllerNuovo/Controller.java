@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.CategoryDto;
 import com.example.backend.dto.ImageDto;
+import com.example.backend.dto.SearchItem;
 import com.example.backend.dto.TopicDto;
 import com.example.backend.dto.UserDto;
 import com.example.backend.service.UserService;
@@ -53,6 +54,16 @@ public class Controller {
 	
 	@GetMapping("/getTopic")
 	public List<TopicDto> getAllTopic() {
-		return  service.getAllTopic();
+		return service.getAllTopic();
+	}
+	
+	@PostMapping("/retrieveArticleByName")
+	public List<UserDto> retrieveAllArticleByName(@RequestBody String search) {
+		return service.retrieveAllArticleByName(search);
+	}
+	
+	@PostMapping("/retrieveArticleByTitle")
+	public UserDto retrieveArticleByTitle(@RequestBody String search) {
+		return service.retrieveArticleByName(search);
 	}
 }

@@ -2,18 +2,21 @@ package com.example.backend.service;
 
 //import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import com.example.backend.dto.CategoryDto;
 import com.example.backend.dto.ImageDto;
+import com.example.backend.dto.SearchItem;
 import com.example.backend.dto.TopicDto;
 import com.example.backend.repository.CategoryRepository;
 import com.example.backend.repository.TopicRepository;
@@ -82,5 +85,18 @@ public class UserService {
 		return listTopic;
 	}
 	
+	public List<UserDto> retrieveAllArticleByName(String searchItem) {
+		List<UserDto> listUserDto = modelMapper.map(userRepository.findByTitleArticleContainingIgnoreCase(searchItem),List.class);
+		
+		return listUserDto;
+	}
 	
+	public UserDto retrieveArticleByName(String searchItem) {
+		String searchItemReplace = searchItem.replace("+", " ");
+		String searchItemComplete = searchItemReplace.replace("=", "");
+		
+		UserDto UserDto = modelMapper.map(userRepository.findByParolaContenutaIgnorandoSpazi(searchItemComplete),UserDto.class);
+		
+		return UserDto;
+	}
 }
