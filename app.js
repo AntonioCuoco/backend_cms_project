@@ -12,14 +12,20 @@ const app = express();
 app.use(express.json());
 app.use(
 	cors({
-		origin: ['http://localhost:3000', 'http://localhost:5173']
+		origin: ['http://localhost:3000', 'http://localhost:5173','https://99dev.net' ]
 	})
 )
+const PORT = process.env.PORT || 8080;
 // app.use('/', require('./routes/authRoutes'));
 
 const server = http.createServer(app);
 
-mongoose.connect(process.env.MONGO_URL).then(console.log('connected')).catch((error) => console.log(error));
+mongoose.connect(process.env.MONGO_URL).then(console.log('connected')).catch((error) => console.log(error));  
+ 
+app.get('/', (req, res) => {
+	return res.status(200).json('server is running');
+	alert('server is running');
+})
 
 app.post('/postArticle', async (req, res) => {
 	const {titleArticle, bodyArticle, imgCopertina, category, subTitle} = req.body;
@@ -119,8 +125,10 @@ app.get('/getImg', async(req,res) => {
 	return res.status(200).json(imageList);
 })
 
-server.listen(3001, () => {
-	console.log("Listening on port 3001");
+
+
+server.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
 });
 
 

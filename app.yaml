@@ -1,0 +1,28 @@
+runtime: nodejs20
+env_variables:
+  MONGO_URL: "mongodb+srv://99dev:qMh6y6HHCFeDRMKW3bHrYn3M3@blogcluster.qdbmuik.mongodb.net/cms_project?retryWrites=true&w=majority"
+handlers:
+  - url: /getArticle
+    script: app.js
+  - url: /getCategory
+    script: app.js
+  - url: /postArticle
+    script: app.js
+  - url: /postCategory
+    script: app.js
+  - url: /getTopic
+    script: app.js
+  - url: /postTopic
+    script: app.js
+  - url: /retrieveArticleByName
+    script: app.js
+  - url: /retrieveArticleByTitle
+    script: app.js
+  - url: /upload
+    script: app.js
+  - url: /getImg
+    script: app.js
+  - url: /static
+    static_dir: static  
+  - url: /.*
+    script: app.js
