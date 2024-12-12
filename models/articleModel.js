@@ -21,6 +21,10 @@ const ArticleSchema = new Schema({
 	subTitle: {
 		type: String,
 		required: true
+	},
+	dataPubblicazione: {
+		type: Date,
+		required: true
 	}
 });
 
